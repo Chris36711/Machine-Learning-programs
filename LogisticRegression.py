@@ -1,0 +1,16 @@
+from sklearn.linear_model import LogisticRegression
+import numpy as np
+X=np.array([[0],[1],[2],[3],[4],[5]])
+y=np.array([0,0,0,1,1,1])
+print("Training Data X:",X)
+print("Training Data y:",y)
+model=LogisticRegression()
+model.fit(X,y)
+test=np.array([[1.5]])
+pred=model.predict(test)
+print("Test value:",test)
+print("Prediction:",pred)
+print("Coefficient:",model.coef_)
+print("Intercept:",model.intercept_)
+score=model.score(X,y)
+print("Accuracy:",score)
