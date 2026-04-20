@@ -1,0 +1,108 @@
+from Crypto.Cipher import AES
+from Crypto.Util.Padding import pad, unpad
+
+# Take input from user
+text = input("Enter message: ").encode()
+
+# Key (must be 16/24/32 bytes)
+key = input("Enter key (16 chars): ").encode()
+
+# Ensure key is exactly 16 bytes
+key = key.ljust(16, b' ')[:16]
+
+# Create cipher
+cipher = AES.new(key, AES.MODE_ECB)
+
+# Encrypt
+ciphertext = cipher.encrypt(pad(text, 16))
+print("Encrypted:", ciphertext)
+
+# Decrypt
+decipher = AES.new(key, AES.MODE_ECB)
+plaintext = unpad(decipher.decrypt(ciphertext), 16)
+
+print("Decrypted:", plaintext.decode())
+
+
+
+
+==============================
+
+
+from Crypto.Cipher import DES
+from Crypto.Util.Padding import pad, unpad
+
+# Take input from user
+text = input("Enter message: ").encode()
+
+# Key (must be 8 bytes)
+key = input("Enter key (8 chars): ").encode()
+
+# Ensure key is exactly 8 bytes
+key = key.ljust(8, b' ')[:8]
+
+# Create cipher
+cipher = DES.new(key, DES.MODE_ECB)
+
+# Encrypt
+ciphertext = cipher.encrypt(pad(text, 8))
+print("Encrypted:", ciphertext)
+
+# Decrypt
+decipher = DES.new(key, DES.MODE_ECB)
+plaintext = unpad(decipher.decrypt(ciphertext), 8)
+
+print("Decrypted:", plaintext.decode())
+
+
+==============================================
+
+
+#include<stdio.h>
+
+// gcd function
+int gcd(int a, int b){
+    while(b!=0){
+        int t=b;
+        b=a%b;
+        a=t;
+    }
+    return a;
+}
+
+int main(){
+    int p=3,q=11;
+     
+    int n=p*q;
+    int phi=(p-1)*(q-1);
+ 
+    int msg=7,enc=1,dec=1;
+     
+    int e,d;
+    int i;
+     
+    // find e
+    for(e=2;e<phi;e++){
+        if(gcd(e,phi)==1)
+            break;
+    }
+     
+    // find d
+    for(d=1;(e*d)%phi!=1;d++);
+     
+    // encryption
+    for(i=0;i<e;i++){
+        enc=(enc*msg)%n;
+    }
+
+    // decryption
+    for(i=0;i<d;i++){
+        dec=(dec*enc)%n;
+    }
+     
+    printf("\nMessage is %d",msg);
+    printf("\nEncrypted value is %d",enc);
+    printf("\nDecrypted value is %d",dec);
+     
+    return 0; 
+}
