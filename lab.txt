@@ -1,0 +1,55 @@
+from Crypto.Cipher import AES
+from Crypto.Util.Padding import pad, unpad
+
+# Take input from user
+text = input("Enter message: ").encode()
+
+# Key (must be 16/24/32 bytes)
+key = input("Enter key (16 chars): ").encode()
+
+# Ensure key is exactly 16 bytes
+key = key.ljust(16, b' ')[:16]
+
+# Create cipher
+cipher = AES.new(key, AES.MODE_ECB)
+
+# Encrypt
+ciphertext = cipher.encrypt(pad(text, 16))
+print("Encrypted:", ciphertext)
+
+# Decrypt
+decipher = AES.new(key, AES.MODE_ECB)
+plaintext = unpad(decipher.decrypt(ciphertext), 16)
+
+print("Decrypted:", plaintext.decode())
+
+
+
+
+==============================
+
+
+from Crypto.Cipher import DES
+from Crypto.Util.Padding import pad, unpad
+
+# Take input from user
+text = input("Enter message: ").encode()
+
+# Key (must be 8 bytes)
+key = input("Enter key (8 chars): ").encode()
+
+# Ensure key is exactly 8 bytes
+key = key.ljust(8, b' ')[:8]
+
+# Create cipher
+cipher = DES.new(key, DES.MODE_ECB)
+
+# Encrypt
+ciphertext = cipher.encrypt(pad(text, 8))
+print("Encrypted:", ciphertext)
+
+# Decrypt
+decipher = DES.new(key, DES.MODE_ECB)
+plaintext = unpad(decipher.decrypt(ciphertext), 8)
+
+print("Decrypted:", plaintext.decode())
